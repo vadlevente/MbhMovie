@@ -1,6 +1,7 @@
 package com.mbh.moviebrowser.di
 
 import com.mbh.moviebrowser.data.dataSources.ConfigurationDataSource
+import com.mbh.moviebrowser.data.dataSources.GenreDataSource
 import com.mbh.moviebrowser.data.dataSources.MovieDataSource
 import com.mbh.moviebrowser.data.dataSources.SelectedMovieDataSource
 import com.mbh.moviebrowser.domain.useCases.GetMovie
@@ -22,16 +23,18 @@ object UseCaseModule {
     @Singleton
     fun provideGetMoviesUseCase(
         movieDataSource: MovieDataSource,
+        genreDataSource: GenreDataSource,
         configurationDataSource: ConfigurationDataSource,
-    ): GetMovies = GetMovies(movieDataSource, configurationDataSource)
+    ): GetMovies = GetMovies(movieDataSource, genreDataSource, configurationDataSource)
 
     @Provides
     @Singleton
     fun provideGetMovieUseCase(
         movieDataSource: MovieDataSource,
+        genreDataSource: GenreDataSource,
         configurationDataSource: ConfigurationDataSource,
         selectedMovieDataSource: SelectedMovieDataSource,
-    ): GetMovie = GetMovie(movieDataSource, configurationDataSource, selectedMovieDataSource)
+    ): GetMovie = GetMovie(movieDataSource, genreDataSource, configurationDataSource, selectedMovieDataSource)
 
     @Provides
     @Singleton
@@ -50,6 +53,7 @@ object UseCaseModule {
     @Singleton
     fun provideUpdateDataUseCase(
         movieDataSource: MovieDataSource,
-    ): UpdateData = UpdateData(movieDataSource)
+        genreDataSource: GenreDataSource,
+    ): UpdateData = UpdateData(movieDataSource, genreDataSource)
 
 }
