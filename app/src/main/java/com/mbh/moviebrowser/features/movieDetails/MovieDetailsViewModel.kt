@@ -1,9 +1,9 @@
 package com.mbh.moviebrowser.features.movieDetails
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mbh.moviebrowser.domain.useCases.GetMovie
 import com.mbh.moviebrowser.domain.useCases.ToggleFavorite
+import com.mbh.moviebrowser.ui.ViewModelBase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -12,9 +12,9 @@ import javax.inject.Inject
 class MovieDetailsViewModel @Inject constructor(
     getMovie: GetMovie,
     private val toggleFavorite: ToggleFavorite,
-) : ViewModel() {
+) : ViewModelBase() {
 
-    val movie = getMovie()
+    val movie = getMovie().asState(null)
 
     fun onFavoriteClicked() {
         viewModelScope.launch {
